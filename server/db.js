@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var config = require('./config.js');
 
-mongoose.connect(config.database[process.env.NODE_ENV]);
+mongoose.connect("mongodb://localhost/couponApp");
 var db = mongoose.connection;
 
 var autoIncrement = require('mongoose-auto-increment');
