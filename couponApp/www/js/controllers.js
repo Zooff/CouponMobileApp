@@ -1,28 +1,28 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('CompteCtrl', function($scope, $ionicModal) {
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+  $scope.verifLogin = function() {
 
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
+  }
+
+  $ionicModal.fromTemplateUrl('templates/inscription.html', {
+     scope: $scope,
+     animation: 'slide-in-up'
+  }).then(function(modal) {
+      $scope.inscription = modal;
+  });
+
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('InscriptionCtrl', function($scope) {
+
+  $scope.verifInscription = function() {
+
+  }
+
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('MarketCtrl', function($scope) {
+
 });
