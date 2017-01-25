@@ -1,12 +1,14 @@
-angular.module('starter.controllers', ['starter.services'])
+angular.module('starter.controllers')
 
+.controller('InscriptionCtrl', function($scope, $http, authService) {
 
-.controller('InscriptionCtrl', function($scope, $http, $authService) {
+  console.log('YOu are here');
 
-  $scope.verifInscription = function() {
+  $scope.VerifInscription = function() {
     console.log($scope.inscriptionData);
     authService.signup($scope.inscriptionData).then(function(response){
-    }
+      console.log(response);
+    });
   }
 
-})
+});

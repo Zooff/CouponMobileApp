@@ -6,6 +6,9 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+.constant('ApiEndpoint', {
+  url: 'http://localhost:3000/'
+})
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -31,7 +34,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-  
+
 
   // setup an abstract state for the tabs directive
   .state('tab', {
@@ -56,7 +59,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     views: {
       'tab-compte': {
         templateUrl: 'templates/compte.html',
-        controller: 'CompteCtrl'    
       }
     }
   })
@@ -66,7 +68,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     views: {
       'tab-market': {
         templateUrl: 'templates/market.html',
-        controller: 'MarketCtrl'    
+        controller: 'MarketCtrl'
       }
     }
   });

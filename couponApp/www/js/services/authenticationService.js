@@ -1,6 +1,6 @@
-angular.module('starter.services', [])
+angular.module('starter.services',  [])
 
-.factory('authService', function($q,$http, $window){
+.factory('authService', function($q,$http, $window, ApiEndpoint){
   var isAuth = false;
   var authToken = undefined;
 
@@ -36,7 +36,7 @@ angular.module('starter.services', [])
 
   var login = function (user, resolve, reject){
 
-    $http.post("/authenticate", user).then(function(result){
+    $http.post(ApiEndpoint.url + "authenticate", user).then(function(result){
       if (result.data.success){
         setCredentials(result.data.message);
         resolve(result.data.message);
@@ -49,7 +49,7 @@ angular.module('starter.services', [])
 
   var signup = function (user){
     return $q(function(resolve, reject){
-      $http.post("/signup", user).then(function(result){
+      $http.post(ApiEndpoint.url + "signup", user).then(function(result){
         if (result.status == 200){
           resolve(result);
         }
