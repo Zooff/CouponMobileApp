@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var dao = require('../data/usersDao');
 var daoCoupon = require('../data/couponDao.js');
 var jwt = require('jsonwebtoken');
 
@@ -54,6 +55,17 @@ router.get('/client', function(req, res){
     }
     else {
       res.status(200).json(coupons);
+    }
+  });
+})
+
+router.post('/addCoupon', function(req, res){
+  dao.addCoupon(req.decoded._id, req._id, function(c, err){
+    if(err){
+      res.status(err.status).send(err.message);
+    }
+    else {
+      res.status(200).json(c);
     }
   });
 })

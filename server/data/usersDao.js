@@ -125,7 +125,7 @@ exports.addCoupon = function(idUser, idCoupon, callback){
 		}
 		if(user){
 			if (user.coupons.indexOf(idCoupon) > -1){
-				return callback(null, {status : 409, message : 'User already in the group'});
+				return callback(null, {status : 409, message : 'You already have this coupon, greedy man !'});
 			}
 			user.coupons.push(idCoupon);
 			return user.save(function(err, userModif){
