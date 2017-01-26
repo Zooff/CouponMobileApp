@@ -18,6 +18,29 @@
 
       <button class="button button-clear button-positive" ng-click="deco()">Se déconnecter</button>
       <button class="button button-clear button-positive" ng-click="supprimerCompte()">Supprimer son compte</button>
+
+      <h2>Ajouter un coupon</h2>
+      <label class="item item-input">
+        <span class="input-label">Boutique</span>
+        <input type="text" ng-model="coupon.shopName">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Montant</span>
+        <input type="text" ng-model="coupon.value">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Durée limite de l'offre</span>
+        <input type="date" ng-model="coupon.expireAt">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Quantité disponible</span>
+        <input type="number" ng-model="coupon.count">
+      </label>
+
+      <label class="item">
+        <button class="button button-block button-positive" ng-click="addCoupon()">Valider</button>
+      </label>
+
     </div>
   </ion-content>
 </ion-view>

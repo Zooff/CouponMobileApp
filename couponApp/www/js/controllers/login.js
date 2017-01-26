@@ -4,10 +4,10 @@ angular.module('starter.controllers')
 
   $scope.user;
   getUser();
-  addCoupon();
+  //addCoupon();
 
 
-  function addCoupon() {
+  function addCoupon2() {
     coupon = {
       shopName : "test",
       value : "25%",
@@ -17,6 +17,12 @@ angular.module('starter.controllers')
     };
     console.log(coupon);
     userData.addCoupon(coupon);
+  }
+
+  $scope.addCoupon = function() {
+    console.log($scope.coupon);
+    $scope.coupon.role = "gerant";
+    userData.addCoupon($scope.coupon);
   }
 
   /* A Move */
