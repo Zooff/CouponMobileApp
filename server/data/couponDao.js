@@ -52,7 +52,8 @@ exports.findById = function(id,callback){
 }
 
 exports.saveCoupon = function(newCoupon, callback){
-  var newCoupon = new Coupon({ shopName : newCoupon.shopName, value : newCoupon.value, role : newUser.role, expireAt : newCoupon.expireAt, count : newCoupon.count});
+  var newCoupon = new Coupon({ shopName : newCoupon.shopName, value : newCoupon.value, role : newCoupon.role, expireAt : newCoupon.expireAt, count : newCoupon.count});
+  console.log(newCoupon + "NEW");
   return newCoupon.save(function (err, saveCoupon){
     if (err){
       return callback(null, {status : 500, message : 'Error : ' + err});

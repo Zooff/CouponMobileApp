@@ -11,10 +11,10 @@ var usersSchema = new mongoose.Schema({
   password : String,
   pseudo : String,
   role : { type : String, enum: ['gerant', 'client']},
-  coupons : {
+  coupons : [{
     type : String,
     ref : 'Coupon'
-  },
+  }],
   registration : Date,
 }, {_id : false});
 

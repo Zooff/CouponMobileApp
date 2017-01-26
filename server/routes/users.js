@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var dao = require('../data/usersDao.js');
-var coponDao = require('../data/couponDao.js');
+var daoCoupon = require('../data/couponDao.js');
 var jwt = require('jsonwebtoken');
 
 
@@ -39,6 +39,17 @@ router.get('/', function(req, res, next) {
 
 });
 
+router.get('/me', function(req,res){
+  dao.findById(req.decoded._id, function(user, err){
+    if(err){
+      res.status(err.status).send(err.message);
+    }
+    else {
+      res.status(200).json(user);
+    }
+  })
+});
+
 router.get('/:userId', function(req,res){
   dao.findById(req.params.userId, function(user, err){
     if(err){
@@ -49,6 +60,8 @@ router.get('/:userId', function(req,res){
     }
   })
 });
+
+
 
 router.put('/:userId', function(req, res){
 	if (req.decoded._id == req.params.userId){
@@ -68,25 +81,24 @@ router.put('/:userId', function(req, res){
 	}
 });
 
-router.post('/:userId/addCoupon', function(req,res){
-	if (req.decoded._id == req.params.userId){
-		coupon = req.body;
-		daoCoupon.saveCoupon(coupon, function(saveCoupon, err){
-			if(err){
-				res.status(err.status).send(err.message);
-			}
-			else {
-				dao.addCoupon(req.decoded.id, saveCoupon._id, function(c, err){
-					if(err){
-						res.status(err.status).send(err.message);
-					}
-					else {
-						res.status(200).send(c);
-					}
-				})
-			}
-		})
-	}
+router.post('/me/addCoupon', function(req,res){
+	coupon = req.body;
+	console.log(coupon + "BoDy");
+	daoCoupon.saveCoupon(coupon, function(saveCoupon, err){
+		if(err){
+			res.status(err.status).send(err.message);
+		}
+		else {
+			dao.addCoupon(req.decoded._id, saveCoupon._id, function(c, err){
+				if(err){
+					res.status(err.status).send(err.message);
+				}
+				else {
+					res.status(200).send(c);
+				}
+			})
+		}
+	})
 })
 
 router.delete('/:userId', function(req,res){

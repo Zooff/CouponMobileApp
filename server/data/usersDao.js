@@ -118,7 +118,7 @@ exports.authenticate = function(user, callback){
   });
 }
 
-exports.addCoupon = function(idUser, idcoupon, callback){
+exports.addCoupon = function(idUser, idCoupon, callback){
 	Users.findOne({_id : idUser}, function(err, user){
 		if(err){
 			return callback(null, {status : 500, message : 'Error Find Group : ' + err});
