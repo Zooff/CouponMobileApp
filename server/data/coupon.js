@@ -10,7 +10,7 @@ var couponShema = new mongoose.Schema({
   role : { type : String, enum: ['gerant', 'client']},
   expireAt : Date,
   count : Number,
-}, , {_id : false});
+}, {_id : false});
 
 couponShema.index({ expireAt : 1}, {expireAfterSeconds : 0});
 

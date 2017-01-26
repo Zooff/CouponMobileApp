@@ -16,7 +16,7 @@ exports.FindAll = function(callback){
 }
 
 exports.FindAllGerant = function(callback){
-  Coupon.find{role : "gerant"}, function(err, coupons){
+  Coupon.find({role : "gerant"}, function(err, coupons){
     if (err){
       return callback(null,{status : 500, message : 'Error: ' + err});
     }
@@ -24,11 +24,11 @@ exports.FindAllGerant = function(callback){
       return callback(coupons, null);
     }
     return callback(null, {status : 404, message : 'No Coupons Found'})
-  }
+  });
 }
 
 exports.FindAllClient = function(callback){
-  Coupon.find{role : "client"}, function(err, coupons){
+  Coupon.find({role : "client"}, function(err, coupons){
     if (err){
       return callback(null,{status : 500, message : 'Error: ' + err});
     }
@@ -36,7 +36,7 @@ exports.FindAllClient = function(callback){
       return callback(coupons, null);
     }
     return callback(null, {status : 404, message : 'No Coupons Found'})
-  }
+  });
 }
 
 exports.findById = function(id,callback){
@@ -51,17 +51,15 @@ exports.findById = function(id,callback){
   });
 }
 
-exports.addCoupon = function(newCoupon, callback){
-
+exports.saveCoupon = function(newCoupon, callback){
   var newCoupon = new Coupon({ shopName : newCoupon.shopName, value : newCoupon.value, role : newUser.role, expireAt : newCoupon.expireAt, count : newCoupon.count});
-    return newCoupon.save(function (err, saveCoupon){
-      if (err){
-        return callback(null, {status : 500, message : 'Error : ' + err});
-      }
-      if (saveCoupon){
-        return callback(saveCoupon, null);
-      }
-    });
+  return newCoupon.save(function (err, saveCoupon){
+    if (err){
+      return callback(null, {status : 500, message : 'Error : ' + err});
+    }
+    if (saveCoupon){
+      return callback(saveCoupon, null);
+    }
   });
 }
 

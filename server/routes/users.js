@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var dao = require('../data/usersDao.js');
+var coponDao = require('../data/couponDao.js');
 var jwt = require('jsonwebtoken');
-
 
 
 router.use(function(req, res, next){
@@ -67,6 +67,27 @@ router.put('/:userId', function(req, res){
 		res.status(403).send({success : false, message : 'You cant modify an other users'});
 	}
 });
+
+router.post('/:userId/addCoupon', function(req,res){
+	if (req.decoded._id == req.params.userId){
+		coupon = req.body;
+		daoCoupon.saveCoupon(coupon, function(saveCoupon, err){
+			if(err){
+				res.status(err.status).send(err.message);
+			}
+			else {
+				dao.addCoupon(req.decoded.id, saveCoupon._id, function(c, err){
+					if(err){
+						res.status(err.status).send(err.message);
+					}
+					else {
+						res.status(200).send(c);
+					}
+				})
+			}
+		})
+	}
+})
 
 router.delete('/:userId', function(req,res){
   if (req.decoded._id == req.params.userId){
