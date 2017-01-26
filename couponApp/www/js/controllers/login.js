@@ -11,7 +11,7 @@ angular.module('starter.controllers')
     coupon = {
       shopName : "test",
       value : "25%",
-      role : "client",
+      role : "gerant",
       expireAt : "2018-10-21T13:28:06.419Z",
       count : 5,
     };

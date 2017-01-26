@@ -57,3 +57,5 @@ router.get('/client', function(req, res){
     }
   });
 })
+
+module.exports = router;
