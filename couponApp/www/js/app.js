@@ -59,6 +59,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     views: {
       'tab-compte': {
         templateUrl: 'templates/compte.html',
+        controller: 'CompteCtrl'
       }
     }
   })

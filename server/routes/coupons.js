@@ -58,4 +58,15 @@ router.get('/client', function(req, res){
   });
 })
 
+router.get('/:couponId', function(req,res){
+  dao.findById(req.params.couponId, function(user, err){
+    if(err){
+      res.status(err.status).send(err.message);
+    }
+    else {
+      res.status(200).json(user);
+    }
+  })
+});
+
 module.exports = router;
