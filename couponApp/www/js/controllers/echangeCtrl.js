@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-.controller('EchangeCtrl', function($scope, authService, exchangeData) {
+.controller('EchangeCtrl', function($scope, authService, exchangeData, $ionicModal) {
 
   console.log("testtt");
   $scope.coupons;
@@ -16,5 +16,12 @@ angular.module('starter.controllers')
         $scope.status = 'Unable to load customer data: ' + error.message;
       });
   }
+
+  $ionicModal.fromTemplateUrl('templates/choixExchange.html', {
+     scope: $scope,
+     animation: 'slide-in-up'
+  }).then(function(modal) {
+      $scope.choix = modal;
+  });
 
 });

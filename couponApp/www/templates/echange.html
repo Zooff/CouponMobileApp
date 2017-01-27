@@ -9,7 +9,7 @@
     <div class="list" ng-controller="EchangeCtrl">
       <h2>Coupons à échanger</h2>
       <ion-list>
-        <ion-item ng-repeat="exchange in coupons" ng-click="">
+        <ion-item ng-repeat="exchange in coupons" ng-click="choix.show()">
           <h2>{{exchange.couponA.shopName}}</h2>
           <p>{{exchange.couponA.value}}</p>
         </ion-item>
