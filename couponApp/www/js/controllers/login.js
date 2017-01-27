@@ -1,11 +1,10 @@
 angular.module('starter.controllers')
 
-.controller('CompteCtrl', function($scope, $state, $ionicModal, authService, userData) {
+.controller('CompteCtrl', function($scope, $state, $ionicModal, authService, userData, $window) {
 
   $scope.user;
   getUser();
   console.log(getCoupons());
-
 
   function getCoupons (){
     userData.getCoupons();
@@ -27,6 +26,7 @@ angular.module('starter.controllers')
     console.log($scope.coupon);
     $scope.coupon.role = "gerant";
     userData.addCoupon($scope.coupon);
+    $window.location.reload(true);
   }
 
   /* A Move */
@@ -43,16 +43,33 @@ angular.module('starter.controllers')
   $scope.verifLogin = function() {
     console.log($scope.loginData);
     authService.login($scope.loginData, function(res){
-      $state.go('tab.market');
+      $state.go('tab.market', {}, {reload: true});
     }, function(res){
       alert(res.data);
     });
   }
 
   $scope.deco = function() {
+    console.log("deconnexion...");
     authService.logout();
+    $window.location.reload(true);
+  }
+
+  $scope.supprimerCompte = function() {
+    console.log("Suppression...");
+    userData.removeUser($scope.user._id);
+    $window.location.reload(true);
     $state.go('tab.accueil');
   }
+
+  $scope.supprimerCoupon = function() {
+    console.log("Supp coupon...");
+    
+  }
+
+  $scope.redirectCoupon = function($id){
+    window.location = '/coupons/' + $id;
+  };
 
   $ionicModal.fromTemplateUrl('templates/inscription.html', {
      scope: $scope,

@@ -59,6 +59,17 @@ router.get('/client', function(req, res){
   });
 })
 
+router.get('/:couponId', function(req,res){
+  dao.findById(req.params.couponId, function(user, err){
+    if(err){
+      res.status(err.status).send(err.message);
+    }
+    else {
+      res.status(200).json(user);
+    }
+  })
+});
+
 router.post('/addCoupon', function(req, res){
 	console.log(req.body);
 	daoCoupon.updateCoupon(req.body._id, true, function(updateCoupon, err){

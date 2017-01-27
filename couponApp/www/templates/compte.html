@@ -1,7 +1,10 @@
 <ion-view>
   <ion-content>
-  	<h1>Connectez vous !</h1>
-    <div class="list" ng-controller="CompteCtrl">
+
+    <div class="list" ng-controller="CompteCtrl" ng-if="!user.email">
+      <div class="item bar bar-header bar-dark">
+        <h1 class="title">Connectez-vous !</h1>
+      </div>
       <label class="item item-input">
         <span class="input-label">Login</span>
         <input type="text" ng-model="loginData.email">
@@ -15,10 +18,18 @@
       </label>
 
       <button class="button button-clear button-positive" ng-click="inscription.show()">Créer un compte</button>
+    </div>
+
+    <div class="list" ng-controller="CompteCtrl" ng-if="user">
+      <div class="item bar bar-header bar-dark">
+        <h1 class="title">Bonjour {{user.pseudo}}</h1>
+      </div>
 
       <button class="button button-clear button-positive" ng-click="deco()">Se déconnecter</button>
       <button class="button button-clear button-positive" ng-click="supprimerCompte()">Supprimer son compte</button>
+    </div>
 
+    <div class="list" ng-controller="CompteCtrl" ng-if="user.role=='gerant'">
       <h2>Ajouter un coupon</h2>
       <label class="item item-input">
         <span class="input-label">Boutique</span>
@@ -40,7 +51,21 @@
       <label class="item">
         <button class="button button-block button-positive" ng-click="addCoupon()">Valider</button>
       </label>
-
     </div>
+
+    <div class="list" ng-controller="MarketCtrl" ng-if="user">
+      <h2>Mes coupons</h2>
+      <ion-list show-delete="shouldShowDelete">
+        <ion-item ng-repeat="coupon in coupons">
+          <ion-delete-button class="ion-minus-circled" ng-click=""></ion-delete-button>
+          <h2>{{coupon.shopName}}</h2>
+          <p>{{coupon.value}}</p>
+        </ion-item>
+      </ion-list>
+      <ion-toggle ng-model="shouldShowDelete">
+        Supprimer un coupon ?
+      </ion-toggle>
+    </div>
+
   </ion-content>
 </ion-view>
