@@ -8,14 +8,15 @@ angular.module('starter.services')
   }
 
   userDataOp.addCoupon = function(coupon){
-    return $http.post(ApiEndpoint.url + "users/me/addCoupon", coupon)
+    return $http.post(ApiEndpoint.url + "users/me/addCoupon", coupon);
   }
 
   userDataOp.removeUser = function(idUser){
-    return $http.delete(ApiEndpoint.url + "users/" + idUser)
+    return $http.delete(ApiEndpoint.url + "users/" + idUser);
   }
   
   userDataOp.getCoupons = function(){
+    console.log("la");
     return $http.get(ApiEndpoint.url + "users/me/coupons");
   }
 

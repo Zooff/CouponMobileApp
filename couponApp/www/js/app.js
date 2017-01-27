@@ -72,6 +72,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'MarketCtrl'
       }
     }
+  })
+
+  .state('tab.echange', {
+    url: '/echange',
+    views: {
+      'tab-echange': {
+        templateUrl: 'templates/echange.html'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback

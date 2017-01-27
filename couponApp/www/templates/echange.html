@@ -1,0 +1,20 @@
+<ion-view cache-view="false">
+  <ion-content>
+
+  	<div class="bar bar-header bar-dark">
+      <h1 class="title">Echange de coupons</h1>
+    </div>
+
+    <br><br><br>
+    <div class="list" ng-controller="EchangeCtrl">
+      <h2>Coupons à échanger</h2>
+      <ion-list>
+        <ion-item ng-repeat="coupon in coupons" ng-click="">
+          <h2>{{coupon.shopName}}</h2>
+          <p>{{coupon.value}}</p>
+        </ion-item>
+      </ion-list>
+    </div>
+    
+  </ion-content>
+</ion-view>
