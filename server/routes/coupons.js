@@ -60,14 +60,16 @@ router.get('/client', function(req, res){
 })
 
 router.post('/addCoupon', function(req, res){
-  dao.addCoupon(req.decoded._id, req._id, function(c, err){
-    if(err){
-      res.status(err.status).send(err.message);
-    }
-    else {
-      res.status(200).json(c);
-    }
-  });
+	daoCoupon.updateCoupon(req._id, function(updateCoupon, err){
+		dao.addCoupon(req.decoded._id, req._id, function(c, err){
+	    if(err){
+	      res.status(err.status).send(err.message);
+	    }
+	    else {
+	      res.status(200).json(c);
+	    }
+	  });
+	});
 })
 
 module.exports = router;
