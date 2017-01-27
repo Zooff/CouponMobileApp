@@ -11,5 +11,9 @@ angular.module('starter.services')
     return $http.get(ApiEndpoint.url + "coupons/client");
   }
 
+  couponDataOp.removeCoupon = function(couponId){
+  	return $http.delete(ApiEndpoint.url + "coupons/" + couponId);
+  }
+
   return couponDataOp;
 });

@@ -62,6 +62,11 @@ angular.module('starter.controllers')
     $window.location.reload(true);
   }
 
+  $scope.supprimerCoupon = function() {
+    console.log("Supp coupon...");
+    
+  }
+
   $scope.redirectCoupon = function($id){
     window.location = '/coupons/' + $id;
   };

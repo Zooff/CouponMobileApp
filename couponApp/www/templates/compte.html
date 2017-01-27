@@ -55,14 +55,15 @@
 
     <div class="list" ng-controller="MarketCtrl" ng-if="user">
       <h2>Mes coupons</h2>
-      <ul>
-        <li ng-repeat="coupon in user.coupons">
-          <p ng-click="redirectCoupon(coupon)">
-            {{ 'Coupon : ' + coupon }}
-          </p>
-        </li>
-      </ul>
-      
+      <ion-list show-delete="shouldShowDelete">
+        <ion-item ng-repeat="coupon in user.coupons">
+          <ion-delete-button class="ion-minus-circled" ng-click=""></ion-delete-button>
+          {{ 'Coupon : ' + coupon }}
+        </ion-item>
+      </ion-list>
+      <ion-toggle ng-model="shouldShowDelete">
+        Supprimer un coupon ?
+      </ion-toggle>
     </div>
 
   </ion-content>
