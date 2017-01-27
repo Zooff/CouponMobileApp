@@ -69,12 +69,12 @@ router.post('/addExchange', function(req, res){
 })
 
 router.put('/:idExchange', function(req, res){
-	daoExchange.updateCoupon(req.params.idExchange, exchange, function(updateCoupon, err){
+	daoExchange.updateCoupon(req.params.idExchange, exchange, function(updateExchange, err){
 		if (err){
 			res.status(err.status).send(err.message);
 		}
 		else {
-			res.status(200).json(updateCoupon);
+			res.status(200).json(updateExchange);
 		}
 	})
 })

@@ -15,6 +15,10 @@ var usersSchema = new mongoose.Schema({
     type : String,
     ref : 'Coupon'
   }],
+  exchanges : [{
+    type : String,
+    ref : 'Exchange'
+  }],
   registration : Date,
 }, {_id : false});
 

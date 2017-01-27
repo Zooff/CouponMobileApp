@@ -19,5 +19,10 @@ angular.module('starter.services')
     return $http.get(ApiEndpoint.url + "users/me/coupons");
   }
 
+  userDataOp.getExchange = function(){
+    return $http.get(ApiEndpoint.url + "users/me/exchange");
+  }
+
+
   return userDataOp;
 });

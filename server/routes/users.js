@@ -112,6 +112,17 @@ router.get('/me/coupons', function(req, res){
 	});
 })
 
+router.get('/me/exchanges', function(req, res){
+	dao.getExchange(req.decoded._id, function(exchanges, err){
+		if(err){
+			res.status(err.status).send(err.message);
+		}
+		else {
+			res.status(200).send(exchanges);
+		}
+	});
+})
+
 router.delete('/:userId', function(req,res){
   if (req.decoded._id == req.params.userId){
     dao.removeUser(req.params.userId, function(err){

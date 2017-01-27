@@ -131,6 +131,19 @@ exports.getCoupons = function(idUser, callback){
   })
 }
 
+exports.getExchange = function(idUser, callback){
+  Users.findOne({_id : idUser})
+  .populate('exchange')
+  .exec(function(err, user){
+    if(err){
+			return callback(null, {status : 500, message : 'Error Find Group : ' + err});
+		}
+    if (user){
+      return callback(user.exchanges, null);
+    }
+  })
+}
+
 exports.addCoupon = function(idUser, idCoupon, callback){
 	Users.findOne({_id : idUser}, function(err, user){
 		if(err){
@@ -150,4 +163,26 @@ exports.addCoupon = function(idUser, idCoupon, callback){
 			});
 		}
 	});
+}
+
+exports.permuteCoupon = function(idUser, exchange, callback){
+  Users.findOne({_id : idUser}, function(err, user){
+    if (err){
+      return callback(null, {status : 500, message : 'Error Find Group : ' + err});
+    }
+    if (user){
+      var index = user.coupons.indexOf(exchange.couponA._id);
+      if (index > -1){
+        user.coupons.splice(index, 1);
+        user.coupons.push(exchange.couponB._id);
+        return user.save(function(err, userModif){
+  				if(err){
+  					return callback(null, {status : 500, message : 'Error Save : ' + err});
+  				} else {
+  					return callback(userModif, null);
+  				}
+  			});
+      }
+    }
+  })
 }
