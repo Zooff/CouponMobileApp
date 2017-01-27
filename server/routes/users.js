@@ -101,6 +101,17 @@ router.post('/me/addCoupon', function(req,res){
 	})
 })
 
+router.get('/me/coupons', function(req, res){
+	dao.getCoupons(req.decoded._id, function(coupons, err){
+		if(err){
+			res.status(err.status).send(err.message);
+		}
+		else {
+			res.status(200).send(coupons);
+		}
+	});
+})
+
 router.delete('/:userId', function(req,res){
   if (req.decoded._id == req.params.userId){
     dao.removeUser(req.params.userId, function(err){

@@ -118,6 +118,19 @@ exports.authenticate = function(user, callback){
   });
 }
 
+exports.getCoupons = function(idUser, callback){
+  Users.findOne({_id : idUser})
+  .populate('coupons')
+  .exec(function(err, user){
+    if(err){
+			return callback(null, {status : 500, message : 'Error Find Group : ' + err});
+		}
+    if (user){
+      return callback(user.coupons, null);
+    }
+  })
+}
+
 exports.addCoupon = function(idUser, idCoupon, callback){
 	Users.findOne({_id : idUser}, function(err, user){
 		if(err){

@@ -64,12 +64,21 @@ angular.module('starter.services',  [])
     destroyCredentials();
   }
 
+  var deleteUser = function (idUser) {
+    $http.delete(ApiEndpoint + "users/" + idUser).then(function(result){
+      if (result.data.success){
+        logout();
+      }
+    });
+  }
+
   loadUserCredentials();
 
   return {
     login : login,
     signup : signup,
     logout : logout,
+    deleteUser : deleteUser,
     isAuthenticated : function(){return isAuth;},
   };
 
