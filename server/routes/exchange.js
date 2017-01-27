@@ -51,12 +51,12 @@ router.get('/:exchangeId', function(req,res){
 
 router.post('/addExchange', function(req, res){
 	console.log(req.body);
-	daoCoupon.updateCoupon(req.body._id, true, function(updateCoupon, err){
+	daoExchange.addExchange(req.body.exchange, function(exchange, err){
 		if (err){
 			res.status(err.status).send(err.message);
 		}
 		else {
-			dao.addCoupon(req.decoded._id, req.body._id, function(c, err){
+			dao.addExchange(req.decoded._id, exchange._id, function(c, err){
 	    	if(err){
 	      	res.status(err.status).send(err.message);
 	    	}
@@ -69,7 +69,7 @@ router.post('/addExchange', function(req, res){
 })
 
 router.post('/doIt', function(req, res){
-	
+
 })
 
 router.put('/:idExchange', function(req, res){

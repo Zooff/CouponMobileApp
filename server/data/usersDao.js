@@ -37,7 +37,7 @@ exports.addUser = function(newUser, callback){
     if (user){
       return callback(null, {status : 409, message : 'This User already exist'});
     }
-    var uservar = new Users({ email : newUser.email, password : newUser.password, pseudo : newUser.pseudo, role : newUser.role, coupons : [], registration : new Date().toJSON()});
+    var uservar = new Users({ email : newUser.email, password : newUser.password, pseudo : newUser.pseudo, role : newUser.role, coupons : [], exchanges : [], registration : new Date().toJSON()});
     return uservar.save(function (err, creUser){
       if (err){
         return callback(null, {status : 500, message : 'Error : ' + err});
@@ -164,6 +164,29 @@ exports.addCoupon = function(idUser, idCoupon, callback){
 		}
 	});
 }
+
+exports.addExchange = function(idUser, idExchange, callback){
+  console.log(idExchange);
+	Users.findOne({_id : idUser}, function(err, user){
+		if(err){
+			return callback(null, {status : 500, message : 'Error Find Group : ' + err});
+		}
+		if(user){
+			if (user.exchanges.indexOf(idExchange) > -1){
+				return callback(null, {status : 409, message : 'Bad exchange'});
+			}
+			user.exchanges.push(idExchange);
+			return user.save(function(err, userModif){
+				if(err){
+					return callback(null, {status : 500, message : 'Error Save : ' + err});
+				} else {
+					return callback(userModif, null);
+				}
+			});
+		}
+	});
+}
+
 
 exports.permuteCoupon = function(idUser, exchange, callback){
   Users.findOne({_id : idUser}, function(err, user){

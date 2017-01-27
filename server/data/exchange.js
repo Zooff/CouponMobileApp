@@ -16,6 +16,6 @@ var exchangeShema = new mongoose.Schema({
 
 
 exchangeShema.plugin(autoIncrement.plugin, {model : 'Exchange', field : '_id'});
-var Exchange = mongoose.model("Exchange", couponShema);
+var Exchange = mongoose.model("Exchange", exchangeShema);
 
 module.exports = Exchange;
