@@ -64,15 +64,19 @@ exports.saveCoupon = function(newCoupon, callback){
   });
 }
 
-exports.updateCoupon = function(id, callback){
+exports.updateCoupon = function(id, bool, callback){
   console.log(id);
   Coupon.findOne({_id : id}, function(err, coupon){
     if (err){
       return callback(null, {status : 500, message : 'Error : '+ err});
     }
     if (coupon){
+      if (bool) {
       coupon.count = coupon.count -1;
-      console.log("Count " + coupon.count);
+      }
+      else {
+        coupon.role = 'nomore';
+      }
       return coupon.save(function (err, updateCoupon){
         if (err){
           return callback(null, {status : 500, message : 'Error : ' + err});

@@ -61,7 +61,7 @@ router.get('/client', function(req, res){
 
 router.post('/addCoupon', function(req, res){
 	console.log(req.body);
-	daoCoupon.updateCoupon(req.body._id, function(updateCoupon, err){
+	daoCoupon.updateCoupon(req.body._id, true, function(updateCoupon, err){
 		if (err){
 			res.status(err.status).send(err.message);
 		}
@@ -76,6 +76,17 @@ router.post('/addCoupon', function(req, res){
 			});
 		}
 	});
+})
+
+router.put('/:idCoupon', function(req, res){
+	daoCoupon.updateCoupon(req.body._id, false, function(updateCoupon, err){
+		if (err){
+			res.status(err.status).send(err.message);
+		}
+		else {
+			res.status(200).json(updateCoupon);
+		}
+	})
 })
 
 module.exports = router;

@@ -7,7 +7,7 @@ var couponShema = new mongoose.Schema({
   _id : String,
   shopName : String,
   value : String,
-  role : { type : String, enum: ['gerant', 'client']},
+  role : { type : String, enum: ['gerant', 'client', 'nomore']},
   expireAt : Date,
   count : Number,
 }, {_id : false});
