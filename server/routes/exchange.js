@@ -69,7 +69,21 @@ router.post('/addExchange', function(req, res){
 })
 
 router.post('/doIt', function(req, res){
-
+	daoExchange.permuteCoupon(req.decoded._id, req.body.exchange, function(user, err){
+		if (err){
+			res.status(err.status).send(err.message);
+		}
+		else {
+			daoExchange.delete(req.body.exchange._id, function(err){
+				if (err){
+					res.status(err.status).send(err.message);
+				}
+				else {
+					res.status(200);
+				}
+			});
+		}
+	});
 })
 
 router.put('/:idExchange', function(req, res){
@@ -81,6 +95,17 @@ router.put('/:idExchange', function(req, res){
 			res.status(200).json(updateExchange);
 		}
 	})
+})
+
+router.delete(':idExchange', function(req, res){
+	daoExchange.delete(req.params.idExchange, function(err){
+		if (err){
+			res.status(err.status).send(err.message);
+		}
+		else {
+			res.status(200);
+		}
+	});
 })
 
 module.exports = router;

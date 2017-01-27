@@ -15,5 +15,13 @@ angular.module('starter.services')
     return $http.post(ApiEndpoint.url + "exchange/addExchange", exchange)
   }
 
+  exchangeDataOp.tradeOk = function(idUser, exchange){
+    return $http.post(ApiEndpoint.url + "exchange/doIt", exchange);
+  }
+
+  exchangeDataOp.tradeNo = function(id){
+    return $http.delete(ApiEndpoint.url + "exchange/" + id);
+  }
+
   return exchangeDataOp;
 });

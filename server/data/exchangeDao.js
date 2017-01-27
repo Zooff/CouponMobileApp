@@ -53,6 +53,14 @@ exports.update = function(id, modifiedExchange, callback){
   });
 }
 
-exports.delete = function(){
-
+exports.delete = function(id, callback){
+  Exchange.findOneAndRemove({_id : id}, function(err, user){
+    if (err){
+      return callback({status : 500, message : 'Error : ' + err});
+    }
+    if (user){
+      return callback(null);
+    }
+    return callback(null, {status : 404, message : 'Are you sure this exchange exist ?'});
+  })
 }

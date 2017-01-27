@@ -202,10 +202,28 @@ exports.permuteCoupon = function(idUser, exchange, callback){
   				if(err){
   					return callback(null, {status : 500, message : 'Error Save : ' + err});
   				} else {
-  					return callback(userModif, null);
+  					Users.findOne({_id : exchange.userB}, function(err2, userB){
+              if (err2){
+                return callback(null, {status : 500, message : 'Error Find Group : ' + err});
+              }
+              if (userB){
+                var indexB = userB.coupons.indexOf(exchange.couponB._id);
+                if ( indexB > -1){
+                  userB.coupons.splice(indexB, 1);
+                  userB.coupons.push(exchange.couponA._id);
+                  return user.save(function(err, userModifB){
+            				if(err){
+            					return callback(null, {status : 500, message : 'Error Save : ' + err});
+            				} else {
+            					return callback(userModifB, null);
+            				}
+            			});
+                }
+              }
+            });
   				}
   			});
       }
     }
-  })
+  });
 }

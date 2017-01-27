@@ -7,8 +7,9 @@ angular.module('starter.controllers')
   $scope.user;
   $scope.userCoupon;
   getUser();
-
   getCoupons();
+  getExchange();
+
 
   function getCoupons (){
     userData.getCoupons()
@@ -62,6 +63,16 @@ angular.module('starter.controllers')
       });
   }
 
+  function getExchange() {
+    exchangeData.getCoupons()
+      .success(function (exchanges) {
+        $scope.exchanges = exchanges;
+      })
+      .error(function (error) {
+        $scope.status = 'Unable to load customer data: ' + error.message;
+      });
+  }
+
   $scope.verifLogin = function() {
     console.log($scope.loginData);
     authService.login($scope.loginData, function(res){
@@ -89,6 +100,11 @@ angular.module('starter.controllers')
   $scope.supprimerCoupon = function(id) {
     console.log("Supp coupon...");
     couponData.deleteCoupon(id);
+  }
+
+  $scope.tradeOk = function(exchange){
+    exchangeData.tradeOk($scope.user._id, exchange);
+
   }
 
   $scope.confirmTrade = function(idCoupon) {

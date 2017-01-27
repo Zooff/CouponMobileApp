@@ -72,5 +72,22 @@
       </ion-toggle>
     </div>
 
+    <div class="list" ng-controller="CompteCtrl" ng-if="user">
+      <h2>Mes Echanges</h2>
+      <ion-list show-delete="shouldShowDelete">
+        <ion-item ng-repeat="exchange in exchanges">
+          <h2>{{exchange.couponA.shopName}}     {{exchange.couponB.shopName}}</h2>
+          <p>{{exchange.couponA.value}}     {{exchange.couponB.value}}</p>
+          <i class="icon ion-chevron-right icon-accessory" ng-if="exchange.couponB"></i>
+          <ion-option-button class="button-assertive" ng-if="!exchange.couponB" ng-click="tradeOk(exchange)">
+            Valider !
+          </ion-option-button>
+          <ion-option-button class="button-assertive" ng-if="exchange.couponB" ng-click="tradeNo(exchange)">
+            Refuser !
+          </ion-option-button>
+        </ion-item>
+      </ion-list>
+    </div>
+
   </ion-content>
 </ion-view>
