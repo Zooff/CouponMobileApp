@@ -1,20 +1,22 @@
 angular.module('starter.controllers')
 
 
-.controller('CompteCtrl', function($scope, $state, $ionicModal, authService, userData, couponData, $window, $ionicPopup) {
+.controller('CompteCtrl', function($scope, $state, $ionicModal, authService, userData, couponData, exchangeData, $window, $ionicPopup) {
 
 
   $scope.user;
   $scope.userCoupon;
   getUser();
-  getCoupons();
 
+  getCoupons();
 
   function getCoupons (){
     userData.getCoupons()
       .success(function(coupons){
         $scope.userCoupon = coupons;
-        console.log($scope.userCoupon + "userCoupon");
+          console.log("userCoupon");
+          console.log($scope.userCoupon + "userCoupon");
+
       })
       .error(function (error) {
         $scope.status = 'Unable to load customer data: ' + error.message;
@@ -34,7 +36,6 @@ angular.module('starter.controllers')
   }
 
   $scope.addCoupon = function() {
-    console.log($scope.coupon);
     $scope.coupon.role = "gerant";
     userData.addCoupon($scope.coupon);
     $state.go('tab.compte', {}, {reload: true});
@@ -45,7 +46,16 @@ angular.module('starter.controllers')
     userData.getUser()
       .success(function (user) {
         $scope.user = user;
-        console.log($scope.user);
+      })
+      .error(function (error) {
+        $scope.status = 'Unable to load customer data: ' + error.message;
+      });
+  }
+
+  function getCoupons() {
+    userData.getCoupons()
+      .success(function (coupons) {
+        $scope.coupons = coupons;
       })
       .error(function (error) {
         $scope.status = 'Unable to load customer data: ' + error.message;
@@ -81,7 +91,7 @@ angular.module('starter.controllers')
     couponData.deleteCoupon(id);
   }
 
-  $scope.confirmTrade = function() {
+  $scope.confirmTrade = function(idCoupon) {
     console.log("popupppp");
     var confirmPopup = $ionicPopup.confirm({
       title: 'Echanger ce coupon ?',
@@ -91,6 +101,7 @@ angular.module('starter.controllers')
     confirmPopup.then(function(res) {
       if(res) {
         console.log('Ajout dans la liste');
+        exchangeData.addExchange($scope.user._id, idCoupon)
       } else {
         console.log('Ne fais rien');
       }

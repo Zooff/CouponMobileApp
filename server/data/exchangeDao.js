@@ -4,7 +4,9 @@ var mongoose = require('mongoose');
 var Exchange = require('./exchange.js');
 
 exports.FindAll = function(callback){
-  Exchange.find({}, function(err, users){
+  Exchange.find({})
+    .populate('couponA')
+    .exec(function(err, users){
     if (err){
       return callback(null,{status : 500, message : 'Error: ' + err});
     }
@@ -21,7 +23,7 @@ exports.addExchange = function(exchange, callback){
     if (err){
       return callback(null, {status : 500, message : 'Error : ' + err});
     }
-    if (saveCoupon){
+    if (saveExchange){
       return callback(saveExchange, null);
     }
   });
@@ -51,4 +53,6 @@ exports.update = function(id, modifiedExchange, callback){
   });
 }
 
-exports.delete = function()
+exports.delete = function(){
+
+}
