@@ -14,13 +14,12 @@ angular.module('starter.controllers')
     userData.getCoupons()
       .success(function(coupons){
         $scope.userCoupon = coupons;
+        console.log($scope.userCoupon + "userCoupon");
       })
       .error(function (error) {
         $scope.status = 'Unable to load customer data: ' + error.message;
       });
   }
-=======
-
 
   function addCoupon2() {
     coupon = {
