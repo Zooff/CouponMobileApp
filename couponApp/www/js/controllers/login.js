@@ -1,11 +1,15 @@
 angular.module('starter.controllers')
 
-.controller('CompteCtrl', function($scope, $ionicModal, authService, userData) {
+.controller('CompteCtrl', function($scope, $state, $ionicModal, authService, userData) {
 
   $scope.user;
   getUser();
-  //addCoupon();
+  console.log(getCoupons());
 
+
+  function getCoupons (){
+    userData.getCoupons();
+  }
 
   function addCoupon2() {
     coupon = {
@@ -39,6 +43,7 @@ angular.module('starter.controllers')
   $scope.verifLogin = function() {
     console.log($scope.loginData);
     authService.login($scope.loginData, function(res){
+      $state.go('tab.market');
     }, function(res){
       alert(res.data);
     });
@@ -46,6 +51,7 @@ angular.module('starter.controllers')
 
   $scope.deco = function() {
     authService.logout();
+    $state.go('tab.accueil');
   }
 
   $ionicModal.fromTemplateUrl('templates/inscription.html', {
