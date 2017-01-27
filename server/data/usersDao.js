@@ -118,6 +118,19 @@ exports.authenticate = function(user, callback){
   });
 }
 
+exports.getCoupons = function(idUser, callback){
+  Users.findOne({_id : idUser})
+  .populate('coupons')
+  .exec(function(err, user){
+    if(err){
+			return callback(null, {status : 500, message : 'Error Find Group : ' + err});
+		}
+    if (user){
+      return callback(user.coupons, null);
+    }
+  })
+}
+
 exports.addCoupon = function(idUser, idCoupon, callback){
 	Users.findOne({_id : idUser}, function(err, user){
 		if(err){
@@ -125,7 +138,7 @@ exports.addCoupon = function(idUser, idCoupon, callback){
 		}
 		if(user){
 			if (user.coupons.indexOf(idCoupon) > -1){
-				return callback(null, {status : 409, message : 'User already in the group'});
+				return callback(null, {status : 409, message : 'You already have this coupon, greedy man !'});
 			}
 			user.coupons.push(idCoupon);
 			return user.save(function(err, userModif){

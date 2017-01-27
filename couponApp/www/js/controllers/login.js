@@ -1,14 +1,14 @@
 angular.module('starter.controllers')
 
-.controller('CompteCtrl', function($scope, $ionicModal, authService, userData, $window, $state) {
+.controller('CompteCtrl', function($scope, $state, $ionicModal, authService, userData, $window) {
 
   $scope.user;
   getUser();
-  //addCoupon();
-  console.log("user : ")
-  console.log($scope.user);
-  console.log("userData : ")
-  console.log(userData);
+  console.log(getCoupons());
+
+  function getCoupons (){
+    userData.getCoupons();
+  }
 
   function addCoupon2() {
     coupon = {
@@ -43,11 +43,10 @@ angular.module('starter.controllers')
   $scope.verifLogin = function() {
     console.log($scope.loginData);
     authService.login($scope.loginData, function(res){
+      $state.go('tab.market', {}, {reload: true});
     }, function(res){
       alert(res.data);
     });
-    console.log($state.current);
-    $state.go('tab.accueil', {}, {reload: true});
   }
 
   $scope.deco = function() {
@@ -60,6 +59,7 @@ angular.module('starter.controllers')
     console.log("Suppression...");
     userData.removeUser($scope.user._id);
     $window.location.reload(true);
+    $state.go('tab.accueil');
   }
 
   $scope.supprimerCoupon = function() {

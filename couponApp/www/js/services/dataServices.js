@@ -3,7 +3,7 @@ angular.module('starter.services')
 .factory("userData", function($http, ApiEndpoint){
   var userDataOp = {};
 
-  userDataOp.getUser = function(idUser){
+  userDataOp.getUser = function(){
     return $http.get(ApiEndpoint.url + "users/me");
   }
 
@@ -13,6 +13,10 @@ angular.module('starter.services')
 
   userDataOp.removeUser = function(idUser){
     return $http.delete(ApiEndpoint.url + "users/" + idUser)
+  }
+  
+  userDataOp.getCoupons = function(){
+    return $http.get(ApiEndpoint.url + "users/me/coupons");
   }
 
   return userDataOp;

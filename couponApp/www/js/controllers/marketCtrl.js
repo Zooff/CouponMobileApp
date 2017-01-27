@@ -15,4 +15,14 @@ angular.module('starter.controllers')
       });
   }
 
+  $scope.addCoupon = function(idCoupon){
+    couponData.addCoupon(idCoupon)
+      .success(function (){
+        alert("ok");
+      })
+      .error(function(error){
+        alert(error);
+      })
+  }
+
 });

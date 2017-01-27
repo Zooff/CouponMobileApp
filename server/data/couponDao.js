@@ -16,7 +16,7 @@ exports.FindAll = function(callback){
 }
 
 exports.FindAllGerant = function(callback){
-  Coupon.find({role : "gerant"}, function(err, coupons){
+  Coupon.find({role : "gerant", count : {$gt : 0}}, function(err, coupons){
     if (err){
       return callback(null,{status : 500, message : 'Error: ' + err});
     }
@@ -28,7 +28,7 @@ exports.FindAllGerant = function(callback){
 }
 
 exports.FindAllClient = function(callback){
-  Coupon.find({role : "client"}, function(err, coupons){
+  Coupon.find({role : "client", count : {$gt : 0}}, function(err, coupons){
     if (err){
       return callback(null,{status : 500, message : 'Error: ' + err});
     }
@@ -64,6 +64,26 @@ exports.saveCoupon = function(newCoupon, callback){
   });
 }
 
+exports.updateCoupon = function(id, callback){
+  console.log(id);
+  Coupon.findOne({_id : id}, function(err, coupon){
+    if (err){
+      return callback(null, {status : 500, message : 'Error : '+ err});
+    }
+    if (coupon){
+      coupon.count = coupon.count -1;
+      console.log("Count " + coupon.count);
+      return coupon.save(function (err, updateCoupon){
+        if (err){
+          return callback(null, {status : 500, message : 'Error : ' + err});
+        }
+        if (updateCoupon){
+          return callback(updateCoupon, null);
+        }
+      });
+    }
+  });
+}
 
 exports.removeCoupon = function(id, callback){
   Coupon.findOneAndRemove({_id : id}, function(err, user){
