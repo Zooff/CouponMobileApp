@@ -14,7 +14,7 @@ angular.module('starter.services')
   userDataOp.removeUser = function(idUser){
     return $http.delete(ApiEndpoint.url + "users/" + idUser)
   }
-  
+
   userDataOp.getCoupons = function(){
     return $http.get(ApiEndpoint.url + "users/me/coupons");
   }

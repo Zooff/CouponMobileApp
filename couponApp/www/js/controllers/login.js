@@ -1,13 +1,20 @@
 angular.module('starter.controllers')
 
-.controller('CompteCtrl', function($scope, $state, $ionicModal, authService, userData, $window) {
+.controller('CompteCtrl', function($scope, $state, $ionicModal, authService, userData, couponData, $window) {
 
   $scope.user;
+  $scope.userCoupon;
   getUser();
-  console.log(getCoupons());
+  getCoupons();
 
   function getCoupons (){
-    userData.getCoupons();
+    userData.getCoupons()
+      .success(function(coupons){
+        $scope.userCoupon = coupons;
+      })
+      .error(function (error) {
+        $scope.status = 'Unable to load customer data: ' + error.message;
+      });
   }
 
   function addCoupon2() {
@@ -62,9 +69,9 @@ angular.module('starter.controllers')
     $state.go('tab.accueil');
   }
 
-  $scope.supprimerCoupon = function() {
+  $scope.supprimerCoupon = function(id) {
     console.log("Supp coupon...");
-    
+    couponData.deleteCoupon(id);
   }
 
   $scope.redirectCoupon = function($id){

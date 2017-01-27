@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var dao = require('../data/usersDao');
-var daoCoupon = require('../data/couponDao.js');
+var daoExchange = require('../data/exchangeDao.js');
 var jwt = require('jsonwebtoken');
 
 
@@ -27,7 +27,7 @@ router.use(function(req, res, next){
 
 
 router.get('/', function(req, res){
-  daoCoupon.FindAll(function(coupons,err){
+  daoExchange.FindAll(function(coupons,err){
     if(err){
       res.status(err.status).send(err.message);
     }
@@ -37,30 +37,9 @@ router.get('/', function(req, res){
   });
 });
 
-router.get('/gerant', function(req, res){
-  daoCoupon.FindAllGerant(function(coupons, err){
-    if(err){
-      res.status(err.status).send(err.message);
-    }
-    else {
-      res.status(200).json(coupons);
-    }
-  });
-})
 
-router.get('/client', function(req, res){
-  daoCoupon.FindAllGerant(function(coupons, err){
-    if(err){
-      res.status(err.status).send(err.message);
-    }
-    else {
-      res.status(200).json(coupons);
-    }
-  });
-})
-
-router.get('/:couponId', function(req,res){
-  dao.findById(req.params.couponId, function(user, err){
+router.get('/:exchangeId', function(req,res){
+  dao.findById(req.params.exchangeId, function(user, err){
     if(err){
       res.status(err.status).send(err.message);
     }
@@ -70,7 +49,7 @@ router.get('/:couponId', function(req,res){
   })
 });
 
-router.post('/addCoupon', function(req, res){
+router.post('/addExchange', function(req, res){
 	console.log(req.body);
 	daoCoupon.updateCoupon(req.body._id, true, function(updateCoupon, err){
 		if (err){
@@ -89,8 +68,8 @@ router.post('/addCoupon', function(req, res){
 	});
 })
 
-router.put('/:idCoupon', function(req, res){
-	daoCoupon.updateCoupon(req.params.idCoupon, false, function(updateCoupon, err){
+router.put('/:idExchange', function(req, res){
+	daoExchange.updateCoupon(req.params.idExchange, exchange, function(updateCoupon, err){
 		if (err){
 			res.status(err.status).send(err.message);
 		}

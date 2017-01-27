@@ -20,5 +20,9 @@ angular.module('starter.services')
     return $http.post(ApiEndpoint.url + "coupons/addCoupon", coupon);
   }
 
+  couponDataOp.deleteCoupon = function(idCoupon){
+    return $http.put(ApiEndpoint.url + "coupons/" + idCoupon);
+  }
+
   return couponDataOp;
 });
