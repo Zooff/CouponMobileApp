@@ -52,17 +52,6 @@ angular.module('starter.controllers')
       });
   }
 
-  function getCoupons() {
-    userData.getCoupons()
-      .success(function (coupons) {
-        $scope.coupons = coupons;
-        console.log($scope.coupons);
-      })
-      .error(function (error) {
-        $scope.status = 'Unable to load customer data: ' + error.message;
-      });
-  }
-
   $scope.verifLogin = function() {
     console.log($scope.loginData);
     authService.login($scope.loginData, function(res){
