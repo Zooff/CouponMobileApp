@@ -1,4 +1,4 @@
-<ion-view>
+<ion-view cache-view="false">
   <ion-content>
 
     <div class="list" ng-controller="CompteCtrl" ng-if="!user.email">
@@ -53,11 +53,13 @@
       </label>
     </div>
 
-    <div class="list" ng-controller="MarketCtrl" ng-if="user">
+    <div class="list" ng-controller="CompteCtrl" ng-if="user">
       <h2>Mes coupons</h2>
       <ion-list show-delete="shouldShowDelete">
         <ion-item ng-repeat="coupon in userCoupon">
           <ion-delete-button class="ion-minus-circled" ng-click="supprimerCoupon(coupon._id)"></ion-delete-button>
+
+        <!-- <ion-item ng-repeat="coupon in coupons" ng-click="confirmTrade()"> -->
           <h2>{{coupon.shopName}}</h2>
           <p>{{coupon.value}}</p>
         </ion-item>

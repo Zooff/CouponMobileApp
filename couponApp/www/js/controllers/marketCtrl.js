@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-.controller('MarketCtrl', function($scope, couponData, authService) {
+.controller('MarketCtrl', function($scope, couponData, authService, $ionicPopup) {
 
   $scope.coupons;
   getCouponGerant();

@@ -1,11 +1,14 @@
 angular.module('starter.controllers')
 
-.controller('CompteCtrl', function($scope, $state, $ionicModal, authService, userData, couponData, $window) {
+
+.controller('CompteCtrl', function($scope, $state, $ionicModal, authService, userData, couponData, $window, $ionicPopup) {
+
 
   $scope.user;
   $scope.userCoupon;
   getUser();
   getCoupons();
+
 
   function getCoupons (){
     userData.getCoupons()
@@ -16,6 +19,8 @@ angular.module('starter.controllers')
         $scope.status = 'Unable to load customer data: ' + error.message;
       });
   }
+=======
+
 
   function addCoupon2() {
     coupon = {
@@ -33,7 +38,7 @@ angular.module('starter.controllers')
     console.log($scope.coupon);
     $scope.coupon.role = "gerant";
     userData.addCoupon($scope.coupon);
-    $window.location.reload(true);
+    $state.go('tab.compte', {}, {reload: true});
   }
 
   /* A Move */
@@ -47,10 +52,24 @@ angular.module('starter.controllers')
         $scope.status = 'Unable to load customer data: ' + error.message;
       });
   }
+
+  function getCoupons() {
+    userData.getCoupons()
+      .success(function (coupons) {
+        $scope.coupons = coupons;
+        console.log($scope.coupons);
+      })
+      .error(function (error) {
+        $scope.status = 'Unable to load customer data: ' + error.message;
+      });
+  }
+
   $scope.verifLogin = function() {
     console.log($scope.loginData);
     authService.login($scope.loginData, function(res){
-      $state.go('tab.market', {}, {reload: true});
+      console.log("testtt");
+      $state.go('tab.compte', {}, {reload: true});
+      //$state.transitionTo('tab.market', null, {reload: true, notify:true});
     }, function(res){
       alert(res.data);
     });
@@ -59,14 +78,14 @@ angular.module('starter.controllers')
   $scope.deco = function() {
     console.log("deconnexion...");
     authService.logout();
-    $window.location.reload(true);
+    $state.go('tab.compte', {}, {reload: true});
   }
 
   $scope.supprimerCompte = function() {
     console.log("Suppression...");
     userData.removeUser($scope.user._id);
     $window.location.reload(true);
-    $state.go('tab.accueil');
+    $state.go('tab.accueil', {}, {reload: true});
   }
 
   $scope.supprimerCoupon = function(id) {
@@ -74,8 +93,20 @@ angular.module('starter.controllers')
     couponData.deleteCoupon(id);
   }
 
-  $scope.redirectCoupon = function($id){
-    window.location = '/coupons/' + $id;
+  $scope.confirmTrade = function() {
+    console.log("popupppp");
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Echanger ce coupon ?',
+      template: 'Etes-vous sûr de vouloir placer ce coupon sur la liste des coupons à échanger ?'
+    });
+
+    confirmPopup.then(function(res) {
+      if(res) {
+        console.log('Ajout dans la liste');
+      } else {
+        console.log('Ne fais rien');
+      }
+    });
   };
 
   $ionicModal.fromTemplateUrl('templates/inscription.html', {

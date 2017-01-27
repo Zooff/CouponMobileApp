@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-.controller('InscriptionCtrl', function($scope, $http, authService) {
+.controller('InscriptionCtrl', function($scope, $http, authService, $state) {
 
   console.log('YOu are here');
 
@@ -9,6 +9,7 @@ angular.module('starter.controllers')
     authService.signup($scope.inscriptionData).then(function(response){
       console.log(response);
     });
+    $state.go('tab.compte', {}, {reload: true});
   }
 
 });

@@ -1,4 +1,4 @@
-<ion-view>
+<ion-view cache-view="false">
   <ion-content>
   
     <h1>Inscrivez vous !</h1>
@@ -29,7 +29,7 @@
       </label>
 
       <label class="item">
-        <button class="button button-block button-positive" ng-click="VerifInscription()">Valider</button>
+        <button class="button button-block button-positive" ng-click="VerifInscription();inscription.hide()">Valider</button>
       </label>
       <label class="item">
         <button class="button button-block button-positive" ng-click="inscription.hide()">Annuler</button>
